@@ -3,7 +3,7 @@
 int entreepolynome(int *degre, int coeffs[]); //prend en entree le degré du polynomes et ses coeffs
 void afficherpolynome(int *degre, int coeffs[]);
 void sommepolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]);
-
+void produitpolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]);
 
 int main(){
 
@@ -72,5 +72,27 @@ if(a==1){
 for(int i = degremin + 1; i<=degremax ; i++) {somme[i] = coeffs1[i];} }
 
 afficherpolynome(&degremax,somme);
+
+}
+
+
+void produitpolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]){
+
+int a = 0; // si a est nulle, deg(poly1)<=deg(poly2)
+
+int degremax;
+if(*degre1<*degre2){ degremax = *degre2;}
+else{degremax = *degre1; a = 1;}
+
+
+int degremin;
+if(*degre1<*degre2){ degremin = *degre1;}
+else{degremin = *degre2;}
+
+int produit[degremax+1];
+
+
+
+
 
 }
