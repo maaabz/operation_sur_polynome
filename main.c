@@ -2,7 +2,7 @@
 
 int entreepolynome(int *degre, int coeffs[]); //prend en entree le degré du polynomes et ses coeffs
 void afficherpolynome(int *degre, int coeffs[]);
-int sommepolynome(int degre1, int coeffs1[], int degre2, int coeffs2[], int resultat[]);
+void sommepolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]);
 
 
 int main(){
@@ -13,6 +13,8 @@ int degre2;
 int poly2[100];
 
 entreepolynome(&degre1,poly1);
+entreepolynome(&degre2,poly2);
+sommepolynome(&degre1, poly1, &degre2, poly2);
 
 return 0;
 
@@ -33,7 +35,7 @@ for(int i = 0; i<= *degre; i++) {
 
 }
 
-afficherpolynome(*degre, coeffs);
+afficherpolynome(degre,coeffs);
 
 
 
@@ -46,12 +48,29 @@ for(int i = 0;i<=*degre;i++){ printf("a_%d = %d \n",i,coeffs[i]); }
 }
 
 
-int sommepolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[], int resultat[]){
-int degremax;
-if(*degre1<*degre2){ degremax = *degre2};
-else{degremax = *degre1;}
+void sommepolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]){
+    
+int a = 0; // si a est nulle, deg(poly1)<=deg(poly2)
 
-int somme[degremax];
-for(int i = 0; i<=*degremax; i++) { somme[i] = poly1[i]+poly2[i]}
+int degremax;
+if(*degre1<*degre2){ degremax = *degre2;}
+else{degremax = *degre1; a = 1;}
+
+
+int degremin;
+if(*degre1<*degre2){ degremin = *degre1;}
+else{degremin = *degre2;}
+
+int somme[degremax+1];
+for(int i = 0; i<=degremin; i++) { somme[i] = coeffs1[i]+coeffs2[i];}
+
+if(a==0){
+for(int i = degremin + 1; i<=degremax ; i++) {somme[i] = coeffs2[i];} }
+
+
+if(a==1){
+for(int i = degremin + 1; i<=degremax ; i++) {somme[i] = coeffs1[i];} }
+
+afficherpolynome(&degremax,somme);
 
 }
