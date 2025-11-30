@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 int entreepolynome(int *degre, int coeffs[]); //prend en entree le degré du polynomes et ses coeffs
+void afficherpolynome(int *degre, int coeffs[]);
 int sommepolynome(int degre1, int coeffs1[], int degre2, int coeffs2[], int resultat[]);
 
 
@@ -32,21 +33,25 @@ for(int i = 0; i<= *degre; i++) {
 
 }
 
+afficherpolynome(*degre, coeffs);
+
+
+
+}
+
+
+void afficherpolynome(int *degre, int coeffs[]){
 printf("Vous avez saisi le polynome suivant : \n");
-for(int i = 0;i<=*degre;i++){ printf("a_%d = %d \n",i,coeffs[i]); }
-
-
-
+for(int i = 0;i<=*degre;i++){ printf("a_%d = %d \n",i,coeffs[i]); } 
 }
 
 
-int sommepolynome(int degre1, int coeffs1[], int degre2, int coeffs2[], int resultat[]){
+int sommepolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[], int resultat[]){
 int degremax;
-if(degre1<degre2){ degremax = degre2};
-else{degremax = degre1;}
+if(*degre1<*degre2){ degremax = *degre2};
+else{degremax = *degre1;}
 
-for 
+int somme[degremax];
+for(int i = 0; i<=*degremax; i++) { somme[i] = poly1[i]+poly2[i]}
 
 }
-
-
