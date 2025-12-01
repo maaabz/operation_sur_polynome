@@ -26,6 +26,8 @@ sommepolynome(&degre1, poly1, &degre2, poly2);
 produitpolynome(&degre1, poly1, &degre2, poly2);
 deriveepolynome(&degre1, poly1);
 integraleintervalle(&degre1, poly1, 9.0, 100.0);
+devlimite(&degre1, poly1, 2.0, 3);  // DL d'ordre 3 en x=2
+
 
 return 0;
 
@@ -177,10 +179,19 @@ void devlimite(int *degre1, int coeffs1[], float a, int n){
 int aderiver[*degre1];
 for(int i = 0 ; i<= *degre1 ; i++) {aderiver[i]=coeffs1[i];}
 
+int deg = *degre1;
 for(int i = 0; i<=n ; i++){
-    int derive[*degre1-i]=deriveepolynome(*degre1-i, aderiver);
-    float b =  valeurpoint(a , derive, *degre1-i);
-    printf("%f*(X-a)^%d \n",b ,i);
+    float b = valeurpoint(a, aderiver, &deg);
+    int fact = 1;
+    for(int j = 1; j <= i; j++) fact *= j;
+    printf("%f*(X-a)^%d \n", b/fact, i);
+
+    
+    int deg2;
+    int derive2[100];
+    calculer_derivee(deg, aderiver, &deg2, derive2);
+    deg = deg2;
+    for(int k=0; k<=deg2; k++) aderiver[k] = derive2[k];
 }
 
 }
