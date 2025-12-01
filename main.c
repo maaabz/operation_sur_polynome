@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 int entreepolynome(int *degre, int coeffs[]); //prend en entree le degré du polynomes et ses coeffs
 void afficherpolynome(int *degre, int coeffs[]);
@@ -15,6 +16,7 @@ int poly2[100];
 entreepolynome(&degre1,poly1);
 entreepolynome(&degre2,poly2);
 sommepolynome(&degre1, poly1, &degre2, poly2);
+produitpolynome(&degre1, poly1, &degre2, poly2);
 
 return 0;
 
@@ -43,7 +45,7 @@ afficherpolynome(degre,coeffs);
 
 
 void afficherpolynome(int *degre, int coeffs[]){
-printf("Vous avez saisi le polynome suivant : \n");
+printf("Le polynome est : \n");
 for(int i = 0;i<=*degre;i++){ printf("a_%d = %d \n",i,coeffs[i]); } 
 }
 
@@ -71,28 +73,44 @@ for(int i = degremin + 1; i<=degremax ; i++) {somme[i] = coeffs2[i];} }
 if(a==1){
 for(int i = degremin + 1; i<=degremax ; i++) {somme[i] = coeffs1[i];} }
 
+printf("SOMME");
 afficherpolynome(&degremax,somme);
 
+
 }
+
+
+
 
 
 void produitpolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]){
 
 int a = 0; // si a est nulle, deg(poly1)<=deg(poly2)
 
-int degremax;
-if(*degre1<*degre2){ degremax = *degre2;}
-else{degremax = *degre1; a = 1;}
+int degrepoly = *degre1 + *degre2;
 
 
-int degremin;
-if(*degre1<*degre2){ degremin = *degre1;}
-else{degremin = *degre2;}
+int premier[degrepoly+1];
+int deuxieme[degrepoly+1];
 
-int produit[degremax+1];
+for(int k = 0 ; k <= *degre1 ; k ++) {premier[k]=coeffs1[k];}
+for(int k = 0 ; k <= *degre2 ; k ++) {deuxieme[k]=coeffs2[k];}
+for(int k = *degre1 + 1  ; k <= degrepoly ; k ++) {premier[k]=0;}
+for(int k = *degre2 + 1  ; k <= degrepoly ; k ++) {deuxieme[k]=0;}
 
+int produit[degrepoly+1];
 
+for(int k = 0 ; k <= degrepoly ; k ++) {
+    int res = 0;
+    for(int p = 0; p<=k ; p++) {
+        res += premier[p]*deuxieme[k-p];
 
+}
+produit[k]=res; 
+}
+
+printf("PRODUIT");
+afficherpolynome(&degrepoly,produit);
 
 
 }
