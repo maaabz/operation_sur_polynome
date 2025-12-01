@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 void entreepolynome(int *degre, int coeffs[]);
 void afficherpolynome(int *degre, int coeffs[]);
 void sommepolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]);
 void produitpolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]);
 void deriveepolynome(int *degre1, int coeffs1[]);
-void integraleintervalle(int *degre1, int coeffs1[], int a, int b);
+void integraleintervalle(int *degre1, int coeffs1[], float a, float b);
 
 int main(){
 
@@ -20,6 +21,7 @@ entreepolynome(&degre2,poly2);
 sommepolynome(&degre1, poly1, &degre2, poly2);
 produitpolynome(&degre1, poly1, &degre2, poly2);
 deriveepolynome(&degre1, poly1);
+integraleintervalle(&degre1, poly1, 9.0, 100.0);
 
 return 0;
 
@@ -121,7 +123,7 @@ afficherpolynome(&degrepoly,produit);
 
 void deriveepolynome(int *degre1, int coeffs1[]){
 
-if(*degre1==0){printf("La dérivée de ce polynome est le polynome nulle");}
+if(*degre1==0){printf("La dérivée de ce polynome est le polynome nulle \n"); return;}
 
 int degrederive = *degre1 - 1;
 int derive[*degre1];
@@ -133,10 +135,12 @@ afficherpolynome(&(degrederive),derive);
 }
 
 
-void integraleintervalle(int *degre1, int coeffs1[], int a, int b){
+void integraleintervalle(int *degre1, int coeffs1[], float a, float b){
 
-int degreprimitive = *degre1 + 1;
-int primitive[degreprimitive];
-for(int k = 0 ; k <= degreprimitive ; k ++) {primitive[k]=coeffs1[k-1]/(k-1);}
-
+float FA = 0.0;
+float FB = 0.0;
+for(int k = 0 ; k <= *degre1 ; k ++) {FA+=((float)coeffs1[k]*pow(a,k+1))/(k+1);}
+for(int k = 0 ; k <= *degre1 ; k ++) {FB+=((float)coeffs1[k]*pow(b,k+1))/(k+1);}
+float integraleab = FB-FA;
+printf("L'intégrale de %f à %f du polynome vaut %f \n",a,b, integraleab);
 }
