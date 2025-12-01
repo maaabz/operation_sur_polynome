@@ -8,6 +8,8 @@ void sommepolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]);
 void produitpolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]);
 void deriveepolynome(int *degre1, int coeffs1[]);
 void integraleintervalle(int *degre1, int coeffs1[], float a, float b);
+
+float valeurpoint(float a , int coeffs[], int *degre1);
 void devlimite(int *degre1, int coeffs1[], float a, int n);   // Développement limité, en un point a, à l’ordre n :
 
 int main(){
@@ -146,13 +148,25 @@ float integraleab = FB-FA;
 printf("L'intégrale de %f à %f du polynome vaut %f \n",a,b, integraleab);
 }
 
+
+float valeurpoint(float a , int coeffs[], int *degre1){
+
+float res = 0;
+for(int i = 0; i<=*degre1 ; i++) { res+= coeffs[i]*pow(a,i);}
+return res;
+}
+
 void devlimite(int *degre1, int coeffs1[], float a, int n){
 
+int aderiver[*degre1];
+for(int i = 0 ; i<= *degre1 ; i++) {aderiver[i]=coeffs1[i];}
+
 for(int i = 0; i<=n ; i++){
-    int derive[*degre1-i]=deriveepolynome(*degre1, coeffs1)
+    int derive[*degre1-i]=deriveepolynome(*degre1-i, aderiver);
+    float b =  valeurpoint(a , derive, *degre1-i);
+    printf("%f*(X-a)^%d \n",b ,i);
 }
 
 }
 
 
-}
