@@ -6,6 +6,7 @@ void afficherpolynome(int *degre, int coeffs[]);
 void sommepolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]);
 void produitpolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]);
 void deriveepolynome(int *degre1, int coeffs1[]);
+void integraleintervalle(int *degre1, int coeffs1[], int a, int b);
 
 int main(){
 
@@ -122,11 +123,20 @@ void deriveepolynome(int *degre1, int coeffs1[]){
 
 if(*degre1==0){printf("La dérivée de ce polynome est le polynome nulle");}
 
- int degrederive = *degre1 - 1;
+int degrederive = *degre1 - 1;
 int derive[*degre1];
 for(int k = 0 ; k <= degrederive ; k ++) {derive[k]=coeffs1[k+1]*(k+1);}
 
 printf("DERIVEE ");
 afficherpolynome(&(degrederive),derive);
+
+}
+
+
+void integraleintervalle(int *degre1, int coeffs1[], int a, int b){
+
+int degreprimitive = *degre1 + 1;
+int primitive[degreprimitive];
+for(int k = 0 ; k <= degreprimitive ; k ++) {primitive[k]=coeffs1[k-1]/(k-1);}
 
 }
