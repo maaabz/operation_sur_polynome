@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-// Le code se complie avec gcc main.c -o main -lm
+// Le code se complie avec : gcc main.c -o main -lm
 
 void entreepolynome(int *degre, int coeffs[]);
 void afficherpolynome(int *degre, int coeffs[]);
@@ -32,13 +32,13 @@ int degre2;
 int poly2[100];
 
 while(!quitter) {printf("\n ===== OPERATIONS SUR POLYNOMES ===== \n");
-    printf("1) Additioner \n");
-    printf("2) Multiplier \n");
-    printf("3) Deriver \n");
-    printf("4) Intégrer sur un segment \n");
-    printf("5) DL_n(a) \n");
-    printf("6) Trouver une racine (Newton) \n");
-    printf("7) Quitter\n");
+    printf("1)            Additioner \n");
+    printf("2)            Multiplier \n");
+    printf("3)            Dériver \n");
+    printf("4)      Intégrer sur un segment \n");
+    printf("5)             DL_n(a) \n");
+    printf("6)      Trouver une racine (Newton) \n");
+    printf("7)             Quitter\n");
     printf("\n Quelle est votre choix ? : \n");
     scanf("%d",&choix);
     
