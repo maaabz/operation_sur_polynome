@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 
-int entreepolynome(int *degre, int coeffs[]); //prend en entree le degré du polynomes et ses coeffs
+void entreepolynome(int *degre, int coeffs[]);
 void afficherpolynome(int *degre, int coeffs[]);
 void sommepolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]);
 void produitpolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]);
+void deriveepolynome(int *degre1, int coeffs1[]);
 
 int main(){
 
@@ -17,13 +18,14 @@ entreepolynome(&degre1,poly1);
 entreepolynome(&degre2,poly2);
 sommepolynome(&degre1, poly1, &degre2, poly2);
 produitpolynome(&degre1, poly1, &degre2, poly2);
+deriveepolynome(&degre1, poly1);
 
 return 0;
 
 
 }
 
-int entreepolynome(int *degre, int coeffs[]){
+void entreepolynome(int *degre, int coeffs[]){
 
 printf("Quelle est le degré de votre polynome (entier naturel) ? \n");
 scanf("%d",degre);
@@ -73,7 +75,7 @@ for(int i = degremin + 1; i<=degremax ; i++) {somme[i] = coeffs2[i];} }
 if(a==1){
 for(int i = degremin + 1; i<=degremax ; i++) {somme[i] = coeffs1[i];} }
 
-printf("SOMME");
+printf("SOMME ");
 afficherpolynome(&degremax,somme);
 
 
@@ -109,8 +111,22 @@ for(int k = 0 ; k <= degrepoly ; k ++) {
 produit[k]=res; 
 }
 
-printf("PRODUIT");
+printf("PRODUIT ");
 afficherpolynome(&degrepoly,produit);
 
+
+}
+
+
+void deriveepolynome(int *degre1, int coeffs1[]){
+
+if(*degre1==0){printf("La dérivée de ce polynome est le polynome nulle");}
+
+ int degrederive = *degre1 - 1;
+int derive[*degre1];
+for(int k = 0 ; k <= degrederive ; k ++) {derive[k]=coeffs1[k+1]*(k+1);}
+
+printf("DERIVEE ");
+afficherpolynome(&(degrederive),derive);
 
 }
