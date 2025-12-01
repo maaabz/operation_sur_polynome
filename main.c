@@ -9,6 +9,7 @@ void produitpolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]);
 void deriveepolynome(int *degre1, int coeffs1[]);
 void integraleintervalle(int *degre1, int coeffs1[], float a, float b);
 
+void calculer_derivee(int degree, int coeffse[], int *degres, int coeffss[]);
 float valeurpoint(float a , int coeffs[], int *degre1);
 void devlimite(int *degre1, int coeffs1[], float a, int n);   // Développement limité, en un point a, à l’ordre n :
 
@@ -126,7 +127,7 @@ afficherpolynome(&degrepoly,produit);
 
 void deriveepolynome(int *degre1, int coeffs1[]){
 
-if(*degre1==0){printf("La dérivée de ce polynome est le polynome nulle \n"); return;}
+if(*degre1==0){printf("La dérivée de ce polynome est le polynome nulle \n"); return ;}
 
 int degrederive = *degre1 - 1;
 int derive[*degre1];
@@ -134,10 +135,25 @@ for(int k = 0 ; k <= degrederive ; k ++) {derive[k]=coeffs1[k+1]*(k+1);}
 
 printf("DERIVEE ");
 afficherpolynome(&(degrederive),derive);
+return;
+}
 
+void calculer_derivee(int degree, int coeffse[], int *degres, int coeffss[]) {
+    if(degree == 0) {
+        *degres = 0;
+        coeffss[0] = 0;
+        return;
+    } 
+    *degres = degree - 1;
+    for(int k = 0; k <= *degres; k++) {
+        coeffss[k] = coeffse[k+1] * (k+1);
+    }
 }
 
 
+
+
+    
 void integraleintervalle(int *degre1, int coeffs1[], float a, float b){
 
 float FA = 0.0;
