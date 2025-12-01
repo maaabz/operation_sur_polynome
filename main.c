@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+// Le code se complie avec gcc main.c -o main -lm
+
 void entreepolynome(int *degre, int coeffs[]);
 void afficherpolynome(int *degre, int coeffs[]);
 void sommepolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]);
@@ -36,29 +38,31 @@ while(!quitter) {printf("\n ===== OPERATIONS SUR POLYNOMES ===== \n");
     printf("4) Intégrer sur un segment \n");
     printf("5) DL_n(a) \n");
     printf("6) Trouver une racine (Newton) \n");
-    printf("Quelle est votre choix ? : \n");
+    printf("7) Quitter\n");
+    printf("\n Quelle est votre choix ? : \n");
     scanf("%d",&choix);
     
     switch (choix) {
         case 1 : 
-        entreepolynome(&degre1,poly1); entreepolynome(&degre2,poly2); sommepolynome(&degre1, poly1, &degre2, poly2) ; break;
+        printf("\n-----SAISIT DU 1ER POLYNOME-----\n") ; entreepolynome(&degre1,poly1); printf("\n-----SAISIT DU 2EME POLYNOME-----\n") ;entreepolynome(&degre2,poly2); sommepolynome(&degre1, poly1, &degre2, poly2) ; break;
 
         case 2 :
-        entreepolynome(&degre1,poly1); entreepolynome(&degre2,poly2);produitpolynome(&degre1, poly1, &degre2, poly2); break;
+        printf("\n-----SAISIT DU 1ER POLYNOME-----\n") ; entreepolynome(&degre1,poly1); printf("\n-----SAISIT DU 2EME POLYNOME-----\n"); entreepolynome(&degre2,poly2);produitpolynome(&degre1, poly1, &degre2, poly2); break;
         
         case 3 : entreepolynome(&degre1,poly1) ; deriveepolynome(&degre1, poly1) ; break;
 
-        case 4 : entreepolynome(&degre1,poly1) ;
-        float a; float b; printf("Quelle est le segment d'intégration [a;b] ?\n");
+        case 4 : printf("\n-----SAISIT DU POLYNOME-----\n") ;entreepolynome(&degre1,poly1) ;
+        float a; float b; printf("\nQuelle est le segment d'intégration [a;b] ?\n");
         printf("Choisissez a :\n"); scanf("%f",&a) ;  printf("Choisissez b :\n") ; scanf("%f",&b) ; integraleintervalle(&degre1, poly1, a,b); break;
         
-        case 5 : entreepolynome(&degre1,poly1) ; printf("Pour votre DL_N(a), que vaut n et a ?\n"); int nn ; float aa; 
-        printf("Choisissez a :\n"); scanf("%f",&aa) ;  printf("Choisissez n :\n") ; scanf("%d",&nn) ; devlimite(&degre1, poly1, a, nn) ; break;
+        case 5 : printf("\n-----SAISIT DU POLYNOME-----\n"); entreepolynome(&degre1,poly1) ; printf("Pour votre DL_N(a), que vaut n et a ?\n"); int nn ; float aa; 
+        printf("Choisissez a :\n"); scanf("%f",&aa) ;  printf("Choisissez n :\n") ; scanf("%d",&nn) ; devlimite(&degre1, poly1, aa, nn) ; break;
 
-        case 6 : entreepolynome(&degre1,poly1) ; printf("Vous souhaitez trover la/les racine(s) eventuelle(s) du polynomes saisit sur un intervalle [a;b]. \n");
-        float a1; float b1; printf("Choisissez a :\n"); scanf("%f",&a1) ;  printf("Choisissez b :\n") ; scanf("%f",&b1) ; methodenewton(&degre1, poly1,a,b,100000) ;
+        case 6 : printf("\n-----SAISIT DU POLYNOME-----\n") ; entreepolynome(&degre1,poly1) ; printf("Vous souhaitez trover la/les racine(s) eventuelle(s) du polynomes saisit sur un intervalle [a;b]. \n");
+        float a1; float b1; printf("Choisissez a :\n"); scanf("%f",&a1) ;  printf("Choisissez b :\n") ; scanf("%f",&b1) ; methodenewton(&degre1, poly1,a1,b1,100000) ;
         break;
 
+        case 7 : quitter = true ; printf("\nCiao\n");
     }
 
     }
@@ -69,29 +73,13 @@ return 0;
 
 
 
-// int degre1;
-// int poly1[100];
-// int degre2;
-// int poly2[100];
-
-// entreepolynome(&degre1,poly1);
-// entreepolynome(&degre2,poly2);
-
-// sommepolynome(&degre1, poly1, &degre2, poly2);
-// produitpolynome(&degre1, poly1, &degre2, poly2);
-// deriveepolynome(&degre1, poly1);
-// integraleintervalle(&degre1, poly1, 9.0, 100.0);
-// devlimite(&degre1, poly1, 2.0, 3);  // DL d'ordre 3 en x=2
-// methodenewton(&degre1, poly1,-9,9,10000);
-
-
 void entreepolynome(int *degre, int coeffs[]){
 
 printf("Quelle est le degré de votre polynome (entier naturel) ? \n");
 scanf("%d",degre);
 printf("Quelle sont ses coefficiants ? (Par ordre croissant a_0,a_1...a_degre)\n");
 for(int i = 0; i<= *degre; i++) {
-    printf("a_%d = ",i);
+    printf("a_%d = \n",i);
     int a;
     scanf("%d",&a);
     coeffs[i] = a;
@@ -107,7 +95,7 @@ afficherpolynome(degre,coeffs);
 
 
 void afficherpolynome(int *degre, int coeffs[]){
-printf("Le polynome est : \n");
+printf("\n");
 for(int i = 0;i<=*degre;i++){ printf("a_%d = %d \n",i,coeffs[i]); } 
 }
 
@@ -135,14 +123,11 @@ for(int i = degremin + 1; i<=degremax ; i++) {somme[i] = coeffs2[i];} }
 if(a==1){
 for(int i = degremin + 1; i<=degremax ; i++) {somme[i] = coeffs1[i];} }
 
-printf("SOMME ");
+printf("La somme de ces deux polynomes est : \n ");
 afficherpolynome(&degremax,somme);
 
 
 }
-
-
-
 
 
 void produitpolynome(int *degre1, int coeffs1[], int *degre2, int coeffs2[]){
@@ -171,7 +156,7 @@ for(int k = 0 ; k <= degrepoly ; k ++) {
 produit[k]=res; 
 }
 
-printf("PRODUIT ");
+printf("Le produit de ces deux polynomes est : \n ");
 afficherpolynome(&degrepoly,produit);
 
 
@@ -186,7 +171,7 @@ int degrederive = *degre1 - 1;
 int derive[*degre1];
 for(int k = 0 ; k <= degrederive ; k ++) {derive[k]=coeffs1[k+1]*(k+1);}
 
-printf("DERIVEE ");
+printf("La derivée du polynome saisie est : \n ");
 afficherpolynome(&(degrederive),derive);
 return;
 }
