@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-// Le code se complie avec : gcc main.c -o main -lm
+// Le code se compile avec : gcc main.c -o main -lm
 
 void entreepolynome(int *degre, int coeffs[]);
 void afficherpolynome(int *degre, int coeffs[]);
