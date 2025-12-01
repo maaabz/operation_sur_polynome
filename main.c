@@ -10,8 +10,13 @@ void deriveepolynome(int *degre1, int coeffs1[]);
 void integraleintervalle(int *degre1, int coeffs1[], float a, float b);
 
 void calculer_derivee(int degree, int coeffse[], int *degres, int coeffss[]);
-float valeurpoint(float a , int coeffs[], int *degre1);
+float valeurpoint(float a , int coeffs[], int *degre1); // valeur en a
 void devlimite(int *degre1, int coeffs1[], float a, int n);   // Développement limité, en un point a, à l’ordre n :
+
+
+void methodenewton(int *degre1, int coeffs1[], float a, float b, int n);
+
+
 
 int main(){
 
@@ -174,6 +179,8 @@ for(int i = 0; i<=*degre1 ; i++) { res+= coeffs[i]*pow(a,i);}
 return res;
 }
 
+
+
 void devlimite(int *degre1, int coeffs1[], float a, int n){
 
 int aderiver[*degre1];
@@ -197,3 +204,27 @@ for(int i = 0; i<=n ; i++){
 }
 
 
+
+void methodenewton(int *degre1, int coeffs1[], float a, float b, int n){
+
+float xo = (a+b)/2;
+float eps = 0.1; // il s'agit de notre précision
+
+for(int i = 0 ; i<=n ; i++){
+    float px = valeurpoint(m,ledegre,*degre1);
+
+    int degre_derive;
+    int coeffsderive[100];   
+    calculer_derivee(*degre1, coeffs1, &degre_derive, coeffsderive);
+    float dpx = valeurpoint(x, coeffsderive, &degre_derive);
+
+    if (dpx==0) {printf("Divison par 0 impossible");return;}
+
+    float nouvx = xo - px/dpx;
+    if (fabs(nouvx - xo)<eps) {printf("Une racine (presque exact) de P est %f", nouvx); return;}
+
+
+}
+
+    
+}
