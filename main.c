@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
 void entreepolynome(int *degre, int coeffs[]);
 void afficherpolynome(int *degre, int coeffs[]);
@@ -13,31 +15,75 @@ void calculer_derivee(int degree, int coeffse[], int *degres, int coeffss[]);
 float valeurpoint(float a , int coeffs[], int *degre1); // valeur en a
 void devlimite(int *degre1, int coeffs1[], float a, int n);   // Développement limité, en un point a, à l’ordre n :
 
-
 void methodenewton(int *degre1, int coeffs1[], float a, float b, int n);
 
 
 
 int main(){
 
+bool quitter = false;
+int choix;
+
 int degre1;
 int poly1[100];
 int degre2;
 int poly2[100];
 
-entreepolynome(&degre1,poly1);
-entreepolynome(&degre2,poly2);
-sommepolynome(&degre1, poly1, &degre2, poly2);
-produitpolynome(&degre1, poly1, &degre2, poly2);
-deriveepolynome(&degre1, poly1);
-integraleintervalle(&degre1, poly1, 9.0, 100.0);
-devlimite(&degre1, poly1, 2.0, 3);  // DL d'ordre 3 en x=2
+while(!quitter) {printf("\n ===== OPERATIONS SUR POLYNOMES ===== \n");
+    printf("1) Additioner \n");
+    printf("2) Multiplier \n");
+    printf("3) Deriver \n");
+    printf("4) Intégrer sur un segment \n");
+    printf("5) DL_n(a) \n");
+    printf("6) Trouver une racine (Newton) \n");
+    printf("Quelle est votre choix ? : \n");
+    scanf("%d",&choix);
+    
+    switch (choix) {
+        case 1 : 
+        entreepolynome(&degre1,poly1); entreepolynome(&degre2,poly2); sommepolynome(&degre1, poly1, &degre2, poly2) ; break;
 
+        case 2 :
+        entreepolynome(&degre1,poly1); entreepolynome(&degre2,poly2);produitpolynome(&degre1, poly1, &degre2, poly2); break;
+        
+        case 3 : entreepolynome(&degre1,poly1) ; deriveepolynome(&degre1, poly1) ; break;
+
+        case 4 : entreepolynome(&degre1,poly1) ;
+        float a; float b; printf("Quelle est le segment d'intégration [a;b] ?\n");
+        printf("Choisissez a :\n"); scanf("%f",&a) ;  printf("Choisissez b :\n") ; scanf("%f",&b) ; integraleintervalle(&degre1, poly1, a,b); break;
+        
+        case 5 : entreepolynome(&degre1,poly1) ; printf("Pour votre DL_N(a), que vaut n et a ?\n"); int nn ; float aa; 
+        printf("Choisissez a :\n"); scanf("%f",&aa) ;  printf("Choisissez n :\n") ; scanf("%d",&nn) ; devlimite(&degre1, poly1, a, nn) ; break;
+
+        case 6 : entreepolynome(&degre1,poly1) ; printf("Vous souhaitez trover la/les racine(s) eventuelle(s) du polynomes saisit sur un intervalle [a;b]. \n");
+        float a1; float b1; printf("Choisissez a :\n"); scanf("%f",&a1) ;  printf("Choisissez b :\n") ; scanf("%f",&b1) ; methodenewton(&degre1, poly1,a,b,100000) ;
+        break;
+
+    }
+
+    }
 
 return 0;
 
-
 }
+
+
+
+// int degre1;
+// int poly1[100];
+// int degre2;
+// int poly2[100];
+
+// entreepolynome(&degre1,poly1);
+// entreepolynome(&degre2,poly2);
+
+// sommepolynome(&degre1, poly1, &degre2, poly2);
+// produitpolynome(&degre1, poly1, &degre2, poly2);
+// deriveepolynome(&degre1, poly1);
+// integraleintervalle(&degre1, poly1, 9.0, 100.0);
+// devlimite(&degre1, poly1, 2.0, 3);  // DL d'ordre 3 en x=2
+// methodenewton(&degre1, poly1,-9,9,10000);
+
 
 void entreepolynome(int *degre, int coeffs[]){
 
@@ -208,23 +254,24 @@ for(int i = 0; i<=n ; i++){
 void methodenewton(int *degre1, int coeffs1[], float a, float b, int n){
 
 float xo = (a+b)/2;
-float eps = 0.1; // il s'agit de notre précision
+float eps = 0.00001; // il s'agit de notre précision
 
 for(int i = 0 ; i<=n ; i++){
-    float px = valeurpoint(m,ledegre,*degre1);
+    float px = valeurpoint(xo,coeffs1,degre1);
 
     int degre_derive;
     int coeffsderive[100];   
     calculer_derivee(*degre1, coeffs1, &degre_derive, coeffsderive);
-    float dpx = valeurpoint(x, coeffsderive, &degre_derive);
-
-    if (dpx==0) {printf("Divison par 0 impossible");return;}
+    float dpx = valeurpoint(xo, coeffsderive, &degre_derive);
+    if(fabs(dpx) < 0.00000001) { printf("Division par 0 impossible (dérivée nulle)\n"); return;}
 
     float nouvx = xo - px/dpx;
-    if (fabs(nouvx - xo)<eps) {printf("Une racine (presque exact) de P est %f", nouvx); return;}
+    if (fabs(nouvx - xo)<eps) {printf("Une racine (presque exact) de P est %f \n", nouvx); return;}
 
+    xo = nouvx;
 
 }
 
-    
+printf("Aucune racine n'a pu etre approximée dans cet intervalle. \n");
+
 }
