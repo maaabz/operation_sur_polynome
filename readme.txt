@@ -1,5 +1,3 @@
-FICHIER README pour le programme 'Mathieu et Paolo.c'
-
 Ce document sert de guide pour la compilation, l'utilisation et la compréhension du programme C 'Mathieu et Paolo.c', qui implémente des opérations sur des polynômes.
 
 ---
@@ -77,3 +75,4 @@ Le code est structuré autour de plusieurs fonctions principales :
 ---
 
 * Auteurs : Mathieu et Paolo
+
