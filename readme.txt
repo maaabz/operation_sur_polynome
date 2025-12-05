@@ -76,7 +76,4 @@ Le code est structuré autour de plusieurs fonctions principales :
 
 ---
 
-AUTEURS ET REMERCIEMENTS
-
 * Auteurs : Mathieu et Paolo
-* Code source : Présent sur le github de maaabz
