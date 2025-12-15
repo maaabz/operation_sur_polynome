@@ -1,4 +1,4 @@
-Ce document sert de guide pour la compilation, l'utilisation et la compréhension du programme C 'Mathieu et Paolo.c', qui implémente des opérations sur des polynômes.
+Ce document sert de guide pour la compilation, l'utilisation et la compréhension du programme C 'main.c', qui implémente des opérations sur des polynômes.
 
 ---
 
@@ -6,7 +6,7 @@ COMPILATION DU PROGRAMME
 
 Le code source a besoin de la librairie mathématique (math.h). Utilisez la commande suivante pour compiler le fichier avec gcc :
 
-gcc Mathieu\ et\ Paolo.c -o polynome_app -lm
+gcc main.c -o polynome_app -lm
 
 * -o polynome_app : Spécifie le nom du fichier exécutable (polynome_app). Vous pouvez choisir un autre nom.
 * -lm : Lie la librairie mathématique (libm.a), nécessaire pour l'utilisation de la fonction pow().
@@ -75,4 +75,5 @@ Le code est structuré autour de plusieurs fonctions principales :
 ---
 
 * Auteurs : Mathieu et Paolo
+
 
